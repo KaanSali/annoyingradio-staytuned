@@ -1,0 +1,58 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+_global_script_classes=[{
+"base": "VBoxContainer",
+"class": &"AngerBar",
+"language": &"GDScript",
+"path": "res://scenes/angerbar/anger_bar.gd"
+}, {
+"base": "TextureRect",
+"class": &"FrequencyBar",
+"language": &"GDScript",
+"path": "res://scenes/radio/Frequency_bar.gd"
+}, {
+"base": "Label",
+"class": &"SongName",
+"language": &"GDScript",
+"path": "res://scenes/radio/Song Name.gd"
+}, {
+"base": "TextureButton",
+"class": &"TextureJumpButton",
+"language": &"GDScript",
+"path": "res://scenes/radio/jump_button.gd"
+}]
+_global_script_class_icons={
+"AngerBar": "",
+"FrequencyBar": "",
+"SongName": "",
+"TextureJumpButton": ""
+}
+
+[application]
+
+config/name="Stay Tuned"
+run/main_scene="res://scenes/game.tscn"
+config/features=PackedStringArray("4.0", "Mobile")
+config/icon="res://Stay_Tuned_Radio.svg"
+
+[display]
+
+window/size/viewport_width=1280
+window/size/viewport_height=720
+window/stretch/mode="canvas_items"
+
+[editor]
+
+movie_writer/movie_file="C:/Work/Godot/StayTuned/movies/mov.avi"
+
+[rendering]
+
+renderer/rendering_method="mobile"

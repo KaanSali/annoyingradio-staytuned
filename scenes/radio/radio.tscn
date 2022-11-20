@@ -1,0 +1,420 @@
+[gd_scene load_steps=28 format=3 uid="uid://d0h5muxoolv71"]
+
+[ext_resource type="Texture2D" uid="uid://dkidrc47lyusn" path="res://scenes/radio/images/v2/Stay_Tuned_Radio.png" id="1_l6no0"]
+[ext_resource type="Script" path="res://scenes/radio/radio.gd" id="2_8qp08"]
+[ext_resource type="Texture2D" uid="uid://c0xnm4ytyofgn" path="res://scenes/radio/images/v2/big_button_normal.png" id="3_5vxih"]
+[ext_resource type="Texture2D" uid="uid://dl8gopcfd0vr6" path="res://scenes/radio/images/v2/big_button_pressed.png" id="4_u1q76"]
+[ext_resource type="Script" path="res://scenes/radio/FrequencyButton.gd" id="5_yg4yu"]
+[ext_resource type="Texture2D" uid="uid://bgtcxbritdl40" path="res://scenes/radio/images/v2/Backward Icon.png" id="6_lmkhj"]
+[ext_resource type="Script" path="res://scenes/radio/Volume.gd" id="6_qst4x"]
+[ext_resource type="Texture2D" uid="uid://xe1vfwxyygna" path="res://scenes/radio/images/v2/Frequency_Bar.png" id="7_wt7lq"]
+[ext_resource type="Script" path="res://scenes/radio/Stop.gd" id="8_o2dqr"]
+[ext_resource type="PackedScene" uid="uid://bb2mvyomu718l" path="res://scenes/radio/subwoofer.tscn" id="8_r78o0"]
+[ext_resource type="Script" path="res://scenes/radio/Frequency_bar.gd" id="8_xiu8n"]
+[ext_resource type="Texture2D" uid="uid://b70qpab102jvw" path="res://scenes/radio/images/Frequency_value.png" id="9_4db76"]
+[ext_resource type="Texture2D" uid="uid://cy10bhgevvxxe" path="res://scenes/radio/images/Frequency_target_value.png" id="10_np3cs"]
+[ext_resource type="Texture2D" uid="uid://dwhf6p2uf3v1m" path="res://scenes/radio/images/v2/Fraquency_bar_outer.png" id="11_l3o8s"]
+[ext_resource type="Script" path="res://scenes/radio/Play.gd" id="12_5ff45"]
+[ext_resource type="Texture2D" uid="uid://cd2x4najx2gfg" path="res://scenes/radio/images/v2/Forward Icon.png" id="12_d1agc"]
+[ext_resource type="Texture2D" uid="uid://b4cj6clhn1ibr" path="res://scenes/radio/images/v2/Score Panel.png" id="14_40x1q"]
+[ext_resource type="FontFile" uid="uid://pxgtlwkyjki5" path="res://assets/fonts/ChakraPetch-Bold.ttf" id="15_5rt7i"]
+[ext_resource type="Texture2D" uid="uid://dlywtnr4gdb27" path="res://scenes/radio/images/v2/button_normal.png" id="15_de57b"]
+[ext_resource type="Script" path="res://scenes/radio/Song Name.gd" id="16_acf63"]
+[ext_resource type="Texture2D" uid="uid://boist8j52j2t0" path="res://scenes/radio/images/v2/button_pressed.png" id="16_nvmhh"]
+[ext_resource type="Script" path="res://scenes/radio/Score.gd" id="17_ktlfm"]
+[ext_resource type="Texture2D" uid="uid://b3gf5xwfibu4g" path="res://scenes/radio/images/v2/Play Icon.png" id="18_7b3lh"]
+[ext_resource type="Texture2D" uid="uid://bmhtttbib3q27" path="res://scenes/radio/images/v2/Stop Icon.png" id="20_7ni4t"]
+[ext_resource type="Script" path="res://scenes/radio/Quit.gd" id="21_nqygj"]
+[ext_resource type="Texture2D" uid="uid://b64f1spau5t86" path="res://scenes/radio/images/v2/On Off Icon.png" id="22_rq0bf"]
+[ext_resource type="Texture2D" uid="uid://dqw7uyxux7oq" path="res://scenes/radio/images/v2/Volume Knob.png" id="23_g4sqc"]
+
+[node name="Radio" type="TextureRect" node_paths=PackedStringArray("playButton")]
+offset_right = 770.0
+offset_bottom = 576.0
+texture = ExtResource("1_l6no0")
+script = ExtResource("2_8qp08")
+playButton = NodePath("BottomPanel_MC/HBoxContainer/VBoxContainer/BottomPanel_HBox/Play")
+
+[node name="TopPanel_MC" type="MarginContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_left = 40
+theme_override_constants/margin_top = 175
+
+[node name="TopPanel_HBox" type="HBoxContainer" parent="TopPanel_MC"]
+layout_mode = 2
+offset_left = 40.0
+offset_top = 175.0
+offset_right = 732.0
+offset_bottom = 261.0
+theme_override_constants/separation = 32
+
+[node name="Lower" type="TextureButton" parent="TopPanel_MC/TopPanel_HBox"]
+custom_minimum_size = Vector2(86, 86)
+layout_mode = 2
+offset_right = 86.0
+offset_bottom = 86.0
+action_mode = 0
+texture_normal = ExtResource("3_5vxih")
+texture_pressed = ExtResource("4_u1q76")
+ignore_texture_size = true
+stretch_mode = 3
+script = ExtResource("5_yg4yu")
+FrequencyNodePath = NodePath("../Frequency_bar")
+IsNegative = true
+FrequencyTimerTickRate = 0.01
+pressButtons = []
+
+[node name="TextureRect" type="TextureRect" parent="TopPanel_MC/TopPanel_HBox/Lower"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.5
+offset_top = -20.0
+offset_right = 23.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("6_lmkhj")
+ignore_texture_size = true
+stretch_mode = 3
+
+[node name="Frequency_bar" type="TextureRect" parent="TopPanel_MC/TopPanel_HBox" node_paths=PackedStringArray("FrequencyContainer", "TargetFrequencyContainer")]
+custom_minimum_size = Vector2(456, 0)
+layout_mode = 2
+offset_left = 118.0
+offset_right = 574.0
+offset_bottom = 86.0
+texture = ExtResource("7_wt7lq")
+ignore_texture_size = true
+stretch_mode = 3
+script = ExtResource("8_xiu8n")
+FrequencyContainer = NodePath("Frequency_value")
+TargetFrequencyContainer = NodePath("Target_Frequency_value")
+TargetFrequency = 101.3
+
+[node name="Target_Frequency_value" type="MarginContainer" parent="TopPanel_MC/TopPanel_HBox/Frequency_bar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 227
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 16
+
+[node name="Value_texture" type="TextureRect" parent="TopPanel_MC/TopPanel_HBox/Frequency_bar/Target_Frequency_value"]
+layout_mode = 2
+offset_left = 227.0
+offset_top = 3.0
+offset_right = 440.0
+offset_bottom = 86.0
+texture = ExtResource("10_np3cs")
+stretch_mode = 2
+
+[node name="Frequency_value" type="MarginContainer" parent="TopPanel_MC/TopPanel_HBox/Frequency_bar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 3
+theme_override_constants/margin_right = 16
+
+[node name="Value_texture" type="TextureRect" parent="TopPanel_MC/TopPanel_HBox/Frequency_bar/Frequency_value"]
+custom_minimum_size = Vector2(5, 80)
+layout_mode = 2
+offset_left = 16.0
+offset_top = 3.0
+offset_right = 440.0
+offset_bottom = 86.0
+texture = ExtResource("9_4db76")
+stretch_mode = 2
+
+[node name="Outer" type="TextureRect" parent="TopPanel_MC/TopPanel_HBox/Frequency_bar"]
+clip_contents = true
+custom_minimum_size = Vector2(456, 0)
+layout_mode = 0
+offset_right = 456.0
+offset_bottom = 86.0
+texture = ExtResource("11_l3o8s")
+ignore_texture_size = true
+stretch_mode = 3
+
+[node name="Higher" type="TextureButton" parent="TopPanel_MC/TopPanel_HBox"]
+custom_minimum_size = Vector2(86, 86)
+layout_mode = 2
+offset_left = 606.0
+offset_right = 692.0
+offset_bottom = 86.0
+action_mode = 0
+texture_normal = ExtResource("3_5vxih")
+texture_pressed = ExtResource("4_u1q76")
+ignore_texture_size = true
+stretch_mode = 3
+script = ExtResource("5_yg4yu")
+FrequencyNodePath = NodePath("../Frequency_bar")
+FrequencyTimerTickRate = 0.01
+pressButtons = []
+
+[node name="TextureRect" type="TextureRect" parent="TopPanel_MC/TopPanel_HBox/Higher"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -23.5
+offset_top = -20.0
+offset_right = 23.5
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("12_d1agc")
+ignore_texture_size = true
+stretch_mode = 3
+
+[node name="BottomPanel_MC" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -211.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_bottom = 32
+
+[node name="HBoxContainer" type="HBoxContainer" parent="BottomPanel_MC"]
+layout_mode = 2
+offset_left = 36.0
+offset_right = 770.0
+offset_bottom = 204.0
+theme_override_constants/separation = 20
+
+[node name="Subwoofer" parent="BottomPanel_MC/HBoxContainer" node_paths=PackedStringArray("playButton") instance=ExtResource("8_r78o0")]
+custom_minimum_size = Vector2(186, 204)
+layout_mode = 2
+offset_right = 186.0
+offset_bottom = 204.0
+playButton = NodePath("../VBoxContainer/BottomPanel_HBox/Play")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="BottomPanel_MC/HBoxContainer"]
+layout_mode = 2
+offset_left = 206.0
+offset_right = 494.0
+offset_bottom = 204.0
+theme_override_constants/separation = 8
+
+[node name="TextureRect" type="TextureRect" parent="BottomPanel_MC/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(286, 120)
+layout_mode = 2
+offset_right = 288.0
+offset_bottom = 120.0
+texture = ExtResource("14_40x1q")
+ignore_texture_size = true
+stretch_mode = 3
+
+[node name="SongName" type="Label" parent="BottomPanel_MC/HBoxContainer/VBoxContainer/TextureRect"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 35.0
+offset_top = 15.0
+offset_right = -29.0
+offset_bottom = -73.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 2
+theme_override_fonts/font = ExtResource("15_5rt7i")
+theme_override_font_sizes/font_size = 22
+text = "Not Playing"
+clip_text = true
+text_overrun_behavior = 3
+script = ExtResource("16_acf63")
+
+[node name="Time Alive" type="Label" parent="BottomPanel_MC/HBoxContainer/VBoxContainer/TextureRect"]
+layout_mode = 0
+offset_left = 36.0
+offset_top = 73.0
+offset_right = 259.0
+offset_bottom = 105.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = -1
+theme_override_constants/shadow_offset_y = 1
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 2
+theme_override_fonts/font = ExtResource("15_5rt7i")
+theme_override_font_sizes/font_size = 22
+text = "Time Alive : 00:00"
+script = ExtResource("17_ktlfm")
+
+[node name="Timer" type="Timer" parent="BottomPanel_MC/HBoxContainer/VBoxContainer/TextureRect/Time Alive"]
+
+[node name="BottomPanel_HBox" type="HBoxContainer" parent="BottomPanel_MC/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+offset_top = 128.0
+offset_right = 288.0
+offset_bottom = 204.0
+size_flags_horizontal = 0
+theme_override_constants/separation = 0
+
+[node name="Play" type="TextureButton" parent="BottomPanel_MC/HBoxContainer/VBoxContainer/BottomPanel_HBox"]
+custom_minimum_size = Vector2(66, 66)
+layout_mode = 2
+offset_top = 5.0
+offset_right = 66.0
+offset_bottom = 71.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+toggle_mode = true
+action_mode = 0
+texture_normal = ExtResource("15_de57b")
+texture_pressed = ExtResource("16_nvmhh")
+ignore_texture_size = true
+stretch_mode = 3
+script = ExtResource("12_5ff45")
+
+[node name="TextureRect" type="TextureRect" parent="BottomPanel_MC/HBoxContainer/VBoxContainer/BottomPanel_HBox/Play"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -13.0
+offset_top = -14.5
+offset_right = 13.0
+offset_bottom = 14.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("18_7b3lh")
+stretch_mode = 3
+
+[node name="Stop" type="TextureButton" parent="BottomPanel_MC/HBoxContainer/VBoxContainer/BottomPanel_HBox"]
+custom_minimum_size = Vector2(66, 66)
+layout_mode = 2
+offset_left = 66.0
+offset_top = 5.0
+offset_right = 132.0
+offset_bottom = 71.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+action_mode = 0
+texture_normal = ExtResource("15_de57b")
+texture_pressed = ExtResource("16_nvmhh")
+ignore_texture_size = true
+stretch_mode = 3
+script = ExtResource("8_o2dqr")
+toggleButton = [NodePath("../../../../../TopPanel_MC/TopPanel_HBox/Lower"), NodePath("../../../../../TopPanel_MC/TopPanel_HBox/Higher"), NodePath("../Play")]
+
+[node name="TextureRect" type="TextureRect" parent="BottomPanel_MC/HBoxContainer/VBoxContainer/BottomPanel_HBox/Stop"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -14.0
+offset_top = -13.5
+offset_right = 14.0
+offset_bottom = 13.5
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("20_7ni4t")
+
+[node name="Quit" type="TextureButton" parent="BottomPanel_MC/HBoxContainer/VBoxContainer/BottomPanel_HBox"]
+custom_minimum_size = Vector2(66, 66)
+layout_mode = 2
+offset_left = 132.0
+offset_top = 5.0
+offset_right = 198.0
+offset_bottom = 71.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture_normal = ExtResource("15_de57b")
+texture_pressed = ExtResource("16_nvmhh")
+ignore_texture_size = true
+stretch_mode = 3
+script = ExtResource("21_nqygj")
+
+[node name="TextureRect" type="TextureRect" parent="BottomPanel_MC/HBoxContainer/VBoxContainer/BottomPanel_HBox/Quit"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.5
+offset_top = -17.0
+offset_right = 15.5
+offset_bottom = 17.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("22_rq0bf")
+
+[node name="MarginContainer" type="MarginContainer" parent="BottomPanel_MC/HBoxContainer/VBoxContainer/BottomPanel_HBox"]
+layout_mode = 2
+offset_left = 198.0
+offset_right = 288.0
+offset_bottom = 76.0
+size_flags_vertical = 4
+theme_override_constants/margin_left = 14
+
+[node name="Volume" type="TextureRect" parent="BottomPanel_MC/HBoxContainer/VBoxContainer/BottomPanel_HBox/MarginContainer"]
+custom_minimum_size = Vector2(76, 76)
+layout_mode = 2
+offset_left = 14.0
+offset_right = 90.0
+offset_bottom = 76.0
+pivot_offset = Vector2(38, 39)
+texture = ExtResource("23_g4sqc")
+ignore_texture_size = true
+stretch_mode = 3
+script = ExtResource("6_qst4x")
+
+[node name="Subwoofer2" parent="BottomPanel_MC/HBoxContainer" node_paths=PackedStringArray("playButton") instance=ExtResource("8_r78o0")]
+custom_minimum_size = Vector2(186, 204)
+layout_mode = 2
+offset_left = 514.0
+offset_right = 700.0
+offset_bottom = 204.0
+playButton = NodePath("../VBoxContainer/BottomPanel_HBox/Play")
+
+[node name="TargetFrequencyTimer" type="Timer" parent="."]
+wait_time = 15.0
+
+[node name="FrequencySpeedTimer" type="Timer" parent="."]
+
+[node name="AngerTimer" type="Timer" parent="."]
+
+[node name="SongNameTimer" type="Timer" parent="."]
+wait_time = 0.5
+
+[connection signal="game_played" from="." to="BottomPanel_MC/HBoxContainer/VBoxContainer/TextureRect/Time Alive" method="_on_radio_game_played"]
+[connection signal="game_stopped" from="." to="BottomPanel_MC/HBoxContainer/VBoxContainer/TextureRect/Time Alive" method="_on_radio_game_stopped"]
+[connection signal="button_down" from="TopPanel_MC/TopPanel_HBox/Lower" to="TopPanel_MC/TopPanel_HBox/Lower" method="_on_button_down"]
+[connection signal="button_up" from="TopPanel_MC/TopPanel_HBox/Lower" to="TopPanel_MC/TopPanel_HBox/Lower" method="_on_button_up"]
+[connection signal="button_down" from="TopPanel_MC/TopPanel_HBox/Higher" to="TopPanel_MC/TopPanel_HBox/Higher" method="_on_button_down"]
+[connection signal="button_up" from="TopPanel_MC/TopPanel_HBox/Higher" to="TopPanel_MC/TopPanel_HBox/Higher" method="_on_button_up"]
+[connection signal="timeout" from="BottomPanel_MC/HBoxContainer/VBoxContainer/TextureRect/Time Alive/Timer" to="BottomPanel_MC/HBoxContainer/VBoxContainer/TextureRect/Time Alive" method="_on_timer_timeout"]
+[connection signal="pressed" from="BottomPanel_MC/HBoxContainer/VBoxContainer/BottomPanel_HBox/Quit" to="BottomPanel_MC/HBoxContainer/VBoxContainer/BottomPanel_HBox/Quit" method="_on_pressed"]
+[connection signal="timeout" from="TargetFrequencyTimer" to="." method="_on_target_frequency_timer_timeout"]
+[connection signal="timeout" from="FrequencySpeedTimer" to="TopPanel_MC/TopPanel_HBox/Frequency_bar" method="SetRandomFrequencySpeed"]
+[connection signal="timeout" from="AngerTimer" to="." method="_on_anger_timer_timeout"]
+[connection signal="timeout" from="SongNameTimer" to="BottomPanel_MC/HBoxContainer/VBoxContainer/TextureRect/SongName" method="_on_song_name_timer_timeout"]

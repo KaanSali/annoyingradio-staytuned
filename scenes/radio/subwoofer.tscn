@@ -1,0 +1,144 @@
+[gd_scene load_steps=9 format=3 uid="uid://bb2mvyomu718l"]
+
+[ext_resource type="Texture2D" uid="uid://cr263kydqe2bi" path="res://scenes/radio/images/Hoparlor Base.png" id="1_r5avp"]
+[ext_resource type="Script" path="res://scenes/radio/subwoofer.gd" id="1_xjr2c"]
+[ext_resource type="Texture2D" uid="uid://75lyp6ag23jr" path="res://scenes/radio/images/v2/Subwoofer Outer Circle.png" id="3_5ergt"]
+[ext_resource type="Texture2D" uid="uid://bwwpa050hr6ck" path="res://scenes/radio/images/v2/Subwoofer Inner Circle.png" id="4_fe78t"]
+[ext_resource type="Texture2D" uid="uid://fwyayqk3t1uf" path="res://scenes/radio/images/v2/Subwoofer Grid.png" id="5_cv4um"]
+
+[sub_resource type="Animation" id="Animation_tlmqv"]
+resource_name = "Music On"
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/path = NodePath("Base/Subwoofer_Outer:scale")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.9, 0.9), Vector2(1, 1), Vector2(1.1, 1.1), Vector2(1, 1), Vector2(0.9, 0.9), Vector2(1, 1), Vector2(0.9, 0.9), Vector2(1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"values": [{
+"args": [1.0],
+"method": &"set_subwoofer_scale"
+}, {
+"args": [1.1],
+"method": &"set_subwoofer_scale"
+}, {
+"args": [1.0],
+"method": &"set_subwoofer_scale"
+}, {
+"args": [0.9],
+"method": &"set_subwoofer_scale"
+}, {
+"args": [1.0],
+"method": &"set_subwoofer_scale"
+}, {
+"args": [1.1],
+"method": &"set_subwoofer_scale"
+}, {
+"args": [1.0],
+"method": &"set_subwoofer_scale"
+}, {
+"args": [0.9],
+"method": &"set_subwoofer_scale"
+}, {
+"args": [1.0],
+"method": &"set_subwoofer_scale"
+}, {
+"args": [0.9],
+"method": &"set_subwoofer_scale"
+}, {
+"args": [1.0],
+"method": &"set_subwoofer_scale"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_4psp5"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Base/Subwoofer_Outer:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4l6tf"]
+_data = {
+"Music On": SubResource("Animation_tlmqv"),
+"RESET": SubResource("Animation_4psp5")
+}
+
+[node name="Subwoofer" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_xjr2c")
+
+[node name="Base" type="TextureRect" parent="."]
+custom_minimum_size = Vector2(186, 204)
+offset_right = 186.0
+offset_bottom = 204.0
+texture = ExtResource("1_r5avp")
+stretch_mode = 3
+
+[node name="Subwoofer_Outer" type="TextureRect" parent="Base"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -70.5
+offset_top = -70.5
+offset_right = 70.5
+offset_bottom = 70.5
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(70, 70)
+texture = ExtResource("3_5ergt")
+stretch_mode = 3
+
+[node name="Subwoofer_Inner" type="TextureRect" parent="Base"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -82.0
+offset_top = -82.0
+offset_right = 82.0
+offset_bottom = 82.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("4_fe78t")
+stretch_mode = 3
+
+[node name="Grid" type="TextureRect" parent="."]
+offset_right = 186.0
+offset_bottom = 204.0
+texture = ExtResource("5_cv4um")
+ignore_texture_size = true
+stretch_mode = 3
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4l6tf")
+}
