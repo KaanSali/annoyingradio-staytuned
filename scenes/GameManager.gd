@@ -1,7 +1,7 @@
 extends Control
 @onready var animPlayer : AnimationPlayer = $AnimationPlayer
 @onready var radioClick : AudioStreamPlayer = $RadioClick
-@onready var quit = $MarginContainer/HBoxContainer/Radio/BottomPanel_MC/HBoxContainer/VBoxContainer/BottomPanel_HBox/Quit
+@onready var quit = $Radio_Margin_Container/HBoxContainer/Radio/BottomPanel_MC/HBoxContainer/VBoxContainer/BottomPanel_HBox/Quit
 func _ready():
 	quit.connect("quit_requested",QuitGame)
 func PlayGame():

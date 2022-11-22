@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://crwnft8v8dvsj"]
+[gd_scene load_steps=31 format=3 uid="uid://bpe4xm7px84mp"]
 
 [ext_resource type="Script" path="res://scenes/GameManager.gd" id="1_0slgj"]
 [ext_resource type="PackedScene" uid="uid://d0h5muxoolv71" path="res://scenes/radio/radio.tscn" id="1_d27hc"]
@@ -14,6 +14,16 @@
 [ext_resource type="AudioStream" uid="uid://bl4qly1hnv5h0" path="res://assets/audio/cuajitoben_-_En_Shenandoah.mp3" id="10_gjtsc"]
 [ext_resource type="Texture2D" uid="uid://bqt54a204ql7p" path="res://scenes/game/Squirrel_Close_Arm.png" id="13_56p7y"]
 [ext_resource type="AudioStream" uid="uid://bn4ij5tbysh1e" path="res://assets/audio/radio_click.mp3" id="13_c3shx"]
+[ext_resource type="Texture2D" uid="uid://cycakld84aret" path="res://scenes/game/tutorial/tutorial_icon.png" id="15_lybbv"]
+[ext_resource type="Texture2D" uid="uid://dwqc0tgy1feaq" path="res://scenes/game/tutorial/credits_icon.png" id="16_rmrxw"]
+[ext_resource type="Texture2D" uid="uid://1wx0mkocjckd" path="res://scenes/game/tutorial/tutorial_bg.png" id="17_5iiqi"]
+[ext_resource type="Script" path="res://scenes/MenuPanel.gd" id="17_py4gt"]
+[ext_resource type="FontFile" uid="uid://cdtqhg8nkk62b" path="res://assets/fonts/ChakraPetch-BoldItalic.ttf" id="17_qvsm8"]
+[ext_resource type="Texture2D" uid="uid://bu58761bul6n7" path="res://scenes/game/tutorial/quit.png" id="18_l4rq6"]
+[ext_resource type="FontFile" uid="uid://d0dcnwwju6ov7" path="res://assets/fonts/ChakraPetch-Regular.ttf" id="20_0vgd7"]
+[ext_resource type="FontFile" uid="uid://dwwdwjphwjjx4" path="res://assets/fonts/SpaceMono-Bold.ttf" id="21_kurv8"]
+[ext_resource type="FontFile" uid="uid://bvrrk3mp8a2j6" path="res://assets/fonts/ChakraPetch-Italic.ttf" id="22_e3ksb"]
+[ext_resource type="FontFile" uid="uid://bmiasuvvad6kf" path="res://assets/fonts/ChakraPetch-Medium.ttf" id="23_tco57"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tq57a"]
 shader = ExtResource("6_5grl7")
@@ -211,6 +221,7 @@ metadata/_edit_horizontal_guides_ = [72.0, 649.0, 112.0]
 metadata/_edit_vertical_guides_ = [128.0, 1152.0, 1024.0, 896.0, 209.0]
 
 [node name="BG_COLOR" type="ColorRect" parent="."]
+layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
 grow_horizontal = 2
@@ -219,6 +230,7 @@ color = Color(0.968627, 0.627451, 0.447059, 1)
 
 [node name="TextureRect" type="TextureRect" parent="BG_COLOR"]
 material = SubResource("ShaderMaterial_tq57a")
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -227,7 +239,8 @@ grow_vertical = 2
 texture = ExtResource("7_v813i")
 ignore_texture_size = true
 
-[node name="MarginContainer" type="MarginContainer" parent="."]
+[node name="Radio_Margin_Container" type="MarginContainer" parent="."]
+layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -238,14 +251,16 @@ theme_override_constants/margin_top = 72
 theme_override_constants/margin_right = 106
 theme_override_constants/margin_bottom = 72
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Radio_Margin_Container"]
+layout_mode = 2
 offset_left = 128.0
 offset_top = 72.0
 offset_right = 1174.0
 offset_bottom = 652.0
 theme_override_constants/separation = 128
 
-[node name="Radio" parent="MarginContainer/HBoxContainer" node_paths=PackedStringArray("RadioEffect", "Music") instance=ExtResource("1_d27hc")]
+[node name="Radio" parent="Radio_Margin_Container/HBoxContainer" node_paths=PackedStringArray("RadioEffect", "Music") instance=ExtResource("1_d27hc")]
+layout_mode = 2
 offset_right = 768.0
 offset_bottom = 580.0
 RadioEffect = NodePath("../../../RadioEffect")
@@ -259,7 +274,8 @@ Songs = {
 }
 AngerBarPath = NodePath("../AngerBar")
 
-[node name="AngerBar" parent="MarginContainer/HBoxContainer" instance=ExtResource("2_1qn1o")]
+[node name="AngerBar" parent="Radio_Margin_Container/HBoxContainer" instance=ExtResource("2_1qn1o")]
+layout_mode = 2
 offset_left = 896.0
 offset_right = 1024.0
 offset_bottom = 580.0
@@ -271,8 +287,10 @@ stream = ExtResource("9_d7nuq")
 
 [node name="RadioClick" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("13_c3shx")
+volume_db = -10.0
 
 [node name="Arm" type="TextureRect" parent="."]
+layout_mode = 0
 offset_left = 323.0
 offset_top = 767.0
 offset_right = 529.0
@@ -286,5 +304,198 @@ libraries = {
 "": SubResource("AnimationLibrary_tl6ih")
 }
 
-[connection signal="game_played" from="MarginContainer/HBoxContainer/Radio" to="." method="_on_radio_game_played"]
-[connection signal="game_stopped" from="MarginContainer/HBoxContainer/Radio" to="." method="_on_radio_game_stopped"]
+[node name="ButtonContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -78.0
+offset_top = 112.0
+offset_bottom = 296.0
+grow_horizontal = 0
+theme_override_constants/separation = 16
+
+[node name="Tutorial_Button" type="TextureButton" parent="ButtonContainer"]
+layout_mode = 2
+offset_right = 78.0
+offset_bottom = 85.0
+texture_normal = ExtResource("15_lybbv")
+stretch_mode = 3
+
+[node name="Credits_Button" type="TextureButton" parent="ButtonContainer"]
+custom_minimum_size = Vector2(78, 83)
+layout_mode = 2
+offset_top = 101.0
+offset_right = 78.0
+offset_bottom = 184.0
+texture_normal = ExtResource("16_rmrxw")
+stretch_mode = 3
+
+[node name="MenuPanel" type="Panel" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("17_py4gt")
+
+[node name="Tutorial" type="TextureRect" parent="MenuPanel"]
+visible = false
+custom_minimum_size = Vector2(1280, 720)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 11.0
+offset_bottom = 11.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("17_5iiqi")
+
+[node name="Tuning (-)" type="Label" parent="MenuPanel/Tutorial"]
+layout_mode = 0
+offset_left = 185.0
+offset_top = 120.0
+offset_right = 290.0
+offset_bottom = 154.0
+theme_override_fonts/font = ExtResource("17_qvsm8")
+theme_override_font_sizes/font_size = 23
+text = "Tuning (-)"
+
+[node name="Frequency Bar" type="Label" parent="MenuPanel/Tutorial"]
+layout_mode = 1
+offset_left = 441.0
+offset_top = 80.0
+offset_right = 724.0
+offset_bottom = 182.0
+theme_override_fonts/font = ExtResource("17_qvsm8")
+theme_override_font_sizes/font_size = 23
+text = "Frequency Bar
+Green = Target Frequency
+Red = Current Frequency"
+
+[node name="Tuning (+)" type="Label" parent="MenuPanel/Tutorial"]
+layout_mode = 1
+offset_left = 930.0
+offset_top = 192.0
+offset_right = 1038.0
+offset_bottom = 226.0
+theme_override_fonts/font = ExtResource("17_qvsm8")
+theme_override_font_sizes/font_size = 23
+text = "Tuning (+)"
+
+[node name="Play" type="Label" parent="MenuPanel/Tutorial"]
+layout_mode = 1
+offset_left = 372.0
+offset_top = 381.0
+offset_right = 655.0
+offset_bottom = 483.0
+theme_override_fonts/font = ExtResource("17_qvsm8")
+theme_override_font_sizes/font_size = 41
+text = "PLAY"
+
+[node name="Stop" type="Label" parent="MenuPanel/Tutorial"]
+layout_mode = 1
+offset_left = 557.0
+offset_top = 655.0
+offset_right = 840.0
+offset_bottom = 757.0
+theme_override_fonts/font = ExtResource("17_qvsm8")
+theme_override_font_sizes/font_size = 41
+text = "STOP"
+
+[node name="Quit" type="Label" parent="MenuPanel/Tutorial"]
+layout_mode = 1
+offset_left = 618.0
+offset_top = 456.0
+offset_right = 901.0
+offset_bottom = 558.0
+theme_override_fonts/font = ExtResource("17_qvsm8")
+theme_override_font_sizes/font_size = 41
+text = "QUIT"
+
+[node name="Volume ( +  - )" type="Label" parent="MenuPanel/Tutorial"]
+layout_mode = 1
+offset_left = 769.0
+offset_top = 477.0
+offset_right = 1052.0
+offset_bottom = 579.0
+theme_override_fonts/font = ExtResource("17_qvsm8")
+theme_override_font_sizes/font_size = 32
+text = "Use the Mouse Wheel
+Volume (+ / -)
+"
+
+[node name="Anger Bar" type="Label" parent="MenuPanel/Tutorial"]
+layout_mode = 1
+offset_left = 923.0
+offset_top = 674.0
+offset_right = 1206.0
+offset_bottom = 776.0
+theme_override_fonts/font = ExtResource("17_qvsm8")
+theme_override_font_sizes/font_size = 32
+text = "Angermeter"
+
+[node name="Credits" type="TextureButton" parent="MenuPanel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MenuPanel/Credits"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 108.0
+offset_top = 51.0
+offset_right = 1132.0
+offset_bottom = 630.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_outline_color = Color(0.266667, 0.32549, 0.588235, 1)
+theme_override_constants/outline_size = 14
+theme_override_fonts/normal_font = ExtResource("20_0vgd7")
+theme_override_fonts/bold_font = ExtResource("21_kurv8")
+theme_override_fonts/italics_font = ExtResource("22_e3ksb")
+theme_override_fonts/bold_italics_font = ExtResource("17_qvsm8")
+theme_override_fonts/mono_font = ExtResource("23_tco57")
+theme_override_font_sizes/normal_font_size = 0
+theme_override_font_sizes/bold_font_size = 24
+theme_override_font_sizes/bold_italics_font_size = 52
+bbcode_enabled = true
+text = "[center][b][i]Game Developers[/i][/b]
+[b]
+Kaan Salı - Game Design, Programming
+Umay Kaya - Game Artist, Logo Design
+[/b]
+[b][i]Songs[/i][/b]
+[b]
+spacedust by airtone
+bluenotes by airtone
+Traveling Lights by Zep Hurme
+Where the Moon Shines Bright by Kara Square
+En Shenandoah by Down With Ben
+[/b]
+[/center]
+
+"
+
+[node name="Quit_button" type="TextureButton" parent="MenuPanel"]
+layout_mode = 0
+offset_left = 1153.0
+offset_right = 1278.0
+offset_bottom = 113.0
+texture_normal = ExtResource("18_l4rq6")
+stretch_mode = 3
+
+[connection signal="game_played" from="Radio_Margin_Container/HBoxContainer/Radio" to="." method="_on_radio_game_played"]
+[connection signal="game_stopped" from="Radio_Margin_Container/HBoxContainer/Radio" to="." method="_on_radio_game_stopped"]
+[connection signal="pressed" from="ButtonContainer/Tutorial_Button" to="MenuPanel" method="_on_tutorial_button_pressed"]
+[connection signal="pressed" from="ButtonContainer/Credits_Button" to="MenuPanel" method="_on_credits_button_pressed"]
+[connection signal="pressed" from="MenuPanel/Quit_button" to="MenuPanel" method="_on_quit_button_pressed"]

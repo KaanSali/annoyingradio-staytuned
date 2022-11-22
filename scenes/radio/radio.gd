@@ -4,7 +4,7 @@ var volume_offset := 0.5
 var is_playing := false
 var time_playing := 0.0
 
-@onready var volumeAnalog := $BottomPanel_MC/HBoxContainer/VBoxContainer/BottomPanel_HBox/MarginContainer/Volume
+@onready var volumeAnalog := $BottomPanel_MC/HBoxContainer/VBoxContainer/BottomPanel_HBox/MarginContainer/ReferenceRect/Volume
 @onready var frequency_bar :FrequencyBar= $TopPanel_MC/TopPanel_HBox/Frequency_bar
 @onready var Song_Name : SongName = $"BottomPanel_MC/HBoxContainer/VBoxContainer/TextureRect/SongName"
 @export var playButton : TextureButton
@@ -31,7 +31,7 @@ func PlaySound():
 	SetRandomTargetFrequency()
 	$TargetFrequencyTimer.start()
 	$FrequencySpeedTimer.start()
-	$AngerTimer.start()	
+	$AngerTimer.start()
 	Music.play()
 	RadioEffect.play()
 	is_playing = true
@@ -50,7 +50,7 @@ func StopSound():
 
 func SetSoundVolumes():
 	var musicVolume = lerp(0.0,80.0*volume_offset,1.0-frequency_bar.GetFrequencyDistance())
-	var radioVolume = lerp(0.0,80.0*volume_offset,frequency_bar.GetFrequencyDistance())
+	var radioVolume = lerp(0.0,70.0*volume_offset,frequency_bar.GetFrequencyDistance())
 	Music.volume_db = -80.0 + musicVolume
 	RadioEffect.volume_db = -80.0 + radioVolume
 	
